@@ -13,7 +13,6 @@ class OrielClassDecorator:
         self.func = func
         update_wrapper(self, func)
         #oriel
-
+    @mock.patch("os.isdir",mock_os_isdir)
     def __call__(self, *args, **kwargs) -> FunctionType:
-        patched_func = mock.patch("os.path.isdir", mock_os_isdir)(self.func)
-        return patched_func(*args, **kwargs)
+        return self.func(*args, **kwargs)
